@@ -3,6 +3,9 @@ uuid = "888c56fc-69ae-4ced-b9cf-124e5f312261"
 authors = ["Francisco J. Valverde-Albacete"]
 version = "1.0.0-DEV"
 
+[deps]
+Tullio = "bc48ee85-29a4-5162-ae0b-a64e1601d4bc"
+
 [compat]
 julia = "1"
 

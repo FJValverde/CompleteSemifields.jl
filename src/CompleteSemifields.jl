@@ -19,6 +19,13 @@
         - lower addition and multiplication refer to max-plus operations.
         - ⊥ is the bottom of the direct semifield, max-plus.
         - ⊤ is the bottom of the inverse semifield, min-plus.
+        
+        It also add a type for (left, right) bisemimodules over complete semifields, to capture,
+        essentially, matrices and their associated left and right vector spaces.
+
+        Note that square matrices on top of belonging to a semimodule, they belong to a semialgebra,
+        ie. a vector space with an extra inner vector product allowing us to generate matrix powers 
+        and tr-closures. 
 """
 module CompleteSemifields
 
@@ -54,4 +61,7 @@ export
 include("commonCode.jl")#Type definitions and little else
 include("maxMinPlus.jl")#Includes the Max-min-plus complete semifield.
 #include("Semimodules.jl")#Actually matrix semimodules!
+
+#Exporting everything from the inside. 
+#using .Semimodules
 end

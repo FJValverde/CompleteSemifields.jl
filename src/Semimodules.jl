@@ -1,61 +1,51 @@
+"""
+ A generic interface for semimodules
+"""
+module CompleteBisemimodules
+
+    export
+    CompleteBisemimodules
+
+    ###########
+    #operations
+    ⊕̇, ⊗̇,#upper addition ''\oplus\dot'', multiplication \otimes\dot 
+    ⊕̧, ⊗̧,#lower addition ''\oplus\c'', multplication \otimes\c 
+    # TODO: try to actually find something like \oplus\ldot lower dot, instead of \c
+    top, #All top elements
+    ⊤,# The top element
+    ⊥, #also called zero, all bottom elements
+    ℯ, #also called the unit, typically a diagonal matrix. 
+    # unit is also a special element.
+    # inv is the inversion operator,
+    # adjoint is the inversion, specially on vectors and matrices, where it transposes.
+     # Show tries to represent ⊥, ⊤ and the unit in some special notation. 
+    ###########
+
+    #############
+    # Concrete types: they are typically implemented over matrices. 
+    MmpBisemimodule #our beloved Max-min-plus pairs. 
+    # Bottom is represented as "⊥ₘ"
+    # Top is represented as "⊤ₘ"
+    ##############
+   
+    @doc raw"""
+    abstract type CompleteBisemimodule{T} end
+
+    Abstract type for a complete bisemimodule over a complete semifield ``(S, \oplus\c, \oplus\dot, \otimes\c, \otimes\dot inv, \bot, \euler, \top)``.
+   
+    It has left and right actions by two algebras: e.g.
+    - For (column) vectors n x 1 this is the left n x n matrix multiplication and the right scaling.
+    - For row vectors, this are duals to the ones above.
+    - For n x m matrices, this is left n x n, and right m x m square matrix multiplications.
+
+    - For square matrices this renders them into an algebra where the transitive and transitive reflexive 
+    elements are defined.
+
+    """
+    abstract type CompleteBisemimodule{T} where T <: CompleteSemifield 
+    end
 #
-# Matrices as Semifields
-#
-# But they are actually:
-# - semimodules, i.e. vectors spaces with left and right actions.
-# - algebras, i.e. what multiplies left and right semimodules.
-using Tullio
 
-import Base: transpose, inv, isless, isequal
+    include("MmpMatrices.jl")
 
-Base.transpose(a::Matrix{AbstractCompleteSemifield}) =
-    permutedims(a,[2,1])
-
-"""
-    Iterated lower addition in semifields
-    #Candidates: suml, ∑̧ \sum\c(cedilla)
-"""
-function ∑̧(x::Vector{AbstractCompleteSemifield{T}}; init=zero(AbstractCompleteSemifield{T})) where T
-    @tullio (⊕̧) S := x[i] init=(init)
-end
-
-""" 
-    Upper sum: iterated upper addition.
-    # Candidates: sumu, ⨃ bigcupdot, ∑̇ \sum\dot
-"""
-function ∑̇(x::Vector{AbstractCompleteSemifield{T}}; init=top(AbstractCompleteSemifield{T})) where T
-    @tullio (⊕̇) S := x[i] init=(init)
-end
-
-"""
-    Upper addition of matrices over complete 
-"""
-function ⊕̇(a::Matrix{AbstractCompleteSemifield{T}}, b::Matrix{AbstractCompleteSemifield{T}}) where T
-    @assert size(a) == size(b)
-    @tullio res[i,j] := a[i,j] ⊕̇ b[i,j]
-end
-
-"""
-    Lower addition of matrices over complete semifields.
-"""
-function ⊕̧(a::Matrix{AbstractCompleteSemifield{T}}, b::Matrix{AbstractCompleteSemifield{T}}) where T
-    @assert size(a) == size(b)
-    @tullio res[i,j] := a[i,j] ⊕̧ b[i,j]
-end
-
-"""
-    Upper multiplication of matrices
-"""
-function ⊗̇(a::Matrix{AbstractCompleteSemifield{T}}, b::Matrix{AbstractCompleteSemifield{T}}) where T
-    #@assert size(a) == size(b)
-    @tullio (⊕̇) res[i,j] := a[i,k] ⊗̇ b[k,j] init=top(AbstractCompleteSemifield{T})
-end
-
-"""
-    Lower multiplication of matrices.
-"""
-function ⊗̧(a::Matrix{AbstractCompleteSemifield{T}}, b::Matrix{AbstractCompleteSemifield{T}}) where T
-    #@assert axes(a,2) == axes(b,1)
-    @tullio (⊕̧) res[i,j] := a[i,k] ⊗̧ b[k,j] init=zero(AbstractCompleteSemifield{T})
-end
-
+ end#CompleteBisemimodules

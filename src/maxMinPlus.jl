@@ -1,12 +1,14 @@
 #
 # Code for defining the Max-min-plus (Mmp) Complete Semifield.
-#
-# This semifield is not naturally complete, but can be completed in the
-# usual form by adding a top element. 
 
+raw"
+    The complete Max-min-plus (Mmp) Semifield.
+
+    This semifield is not naturally complete, but can be completed in the
+    usual form by adding a top element. 
+"
 struct Mmp{T <: AbstractFloat} <: CompleteSemifield{T}
     val::T
-    
     # # Are these constructors needed here?
     # Mmp{T}(x) where T = new{T}(T(x))
     # function Mmp(x::T) where T
@@ -24,8 +26,8 @@ Base.show(io::IO, (; val)::Mmp) =
      val == Inf ?  "⊤ₘ" : 
      val == 0.0 ? ℯ : "$(val)")
 #       (x.val == -Inf ? "⊥ₘ" : (x.val == Inf ? "⊤ₘ" : ))
- #      (x.val == -Inf ? "⊥ₘ" : (x.val == Inf ? "⊤ₘ" : "$(x.val)ₘ")))
-
+#      (x.val == -Inf ? "⊥ₘ" : (x.val == Inf ? "⊤ₘ" : "$(x.val)ₘ")))
+#FVA: this printing makes impossible to recover from a scanning of a string the bottom or top elmts. 
 Base.zero(::Type{Mmp{T}}) where T = Mmp(typemin(T))
 #Base.zero(::Mmp{T}) where T = zero(Mmp{T})#FVA: already defined in commonCode
 
@@ -49,28 +51,31 @@ Base.isless(a::Mmp{T}, b::Mmp{T}) where T = isless(a.val,b.val)
 Base.isequal(a::Mmp{T}, b::Mmp{T}) where T = isequal(a.val,b.val)
 
 # Operator set for all Mmp numbers
-# lower operators \oplusl  \otimesl
+# 1) lower operators \oplusl  \otimesl
 # ⨴(a::Mmp{T}, b::Mmp{T}) where T = 
 #     a == zero(a) ? a :
 #     b == zero(b) ? b : 
 #     Mmp{T}(a.val + b.val)
 # ⨭(a::Mmp{T}, b::Mmp{T}) where T = isless(a.val , b.val) ? b : a #maximum
-⊕̧(a::Mmp{T}, b::Mmp{T}) where T = isless(a.val , b.val) ? b : a
-⊗̧(a::Mmp{T}, b::Mmp{T}) where T = 
+function ⊕̧(a::Mmp{T}, b::Mmp{T}) where T
+    isless(a.val , b.val) ? b : a# 1 de-structuring, no construction
+end
+⊗̧(a::Mmp{T}, b::Mmp{T}) where T = # with early termination for sparse computations.
     a == zero(a) ? a :
     b == zero(b) ? b : 
     Mmp{T}(a.val + b.val)
-#upper operators
+# 2) upper operators
 #> \otimesrhrim
 # ⨵(a::Mmp{T}, b::Mmp{T}) where T = 
 #     a == top(a) ? a :
 #     b == top(b) ? b : 
 #     Mmp{T}(a.val + b.val)
-⊗̇(a::Mmp{T}, b::Mmp{T}) where T = 
+⊗̇(a::Mmp{T}, b::Mmp{T}) where T = # with early termination for sparse computations.
     a == top(a) ? a :
     b == top(b) ? b : 
     Mmp{T}(a.val + b.val)
 #\oplusrhrim
 #⨮(a::Mmp{T}, b::Mmp{T}) where T = a.val < b.val ? a : b #minimum
-⊕̇(a::Mmp{T}, b::Mmp{T}) where T = a.val < b.val ? a : b
-
+function ⊕̇(a::Mmp{T}, b::Mmp{T}) where T
+    a.val < b.val ? a : b# 1 de-structuring, no construction
+end #the minimum

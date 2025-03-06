@@ -14,7 +14,7 @@ import Base: transpose, inv, isless, isequal
     #Candidates: suml, ∑̧ \sum\c(cedilla)
 """
 function ∑̧(x::Vector{CompleteSemifield{T}}; init=zero(CompleteSemifield{T})) where {T}
-    @tullio (⊕̧) S := x[i] init = (init)
+    @tullio (⊕̧) res := x[i] init = (init)
 end
 
 """ 
@@ -22,7 +22,7 @@ end
     # Candidates: sumu, ⨃ bigcupdot, ∑̇ \sum\dot
 """
 function ∑̇(x::Vector{CompleteSemifield{T}}; init=top(CompleteSemifield{T})) where {T}
-    @tullio (⊕̇) S := x[i] init = (init)
+    @tullio (⊕̇) res := x[i] init = (init)
 end
 
 """
@@ -57,3 +57,9 @@ function ⊗̧(a::Matrix{CompleteSemifield{T}}, b::Matrix{CompleteSemifield{T}})
     @tullio (⊕̧) res[i, j] := a[i, k] ⊗̧ b[k, j] init = zero(CompleteSemifield{T})
 end
 
+"""
+    C-G conjugate on matrices.
+"""
+function inv(a::Matrix{CompleteSemifield{T}}) where {T}
+    @tullio res[i,j] := inv(a[j,i])#Tranposition inverse
+end

@@ -30,7 +30,7 @@ Base.show(io::IO, (; val)::Mmp) =
     Base.print(io, 
      val == -Inf ? "⊥ₘ" :
      val == Inf ?  "⊤ₘ" : 
-     val == 0.0 ? ℯ : "$(val)")
+     val == 0.0 ? "⌶" : "$(val)")
 #       (x.val == -Inf ? "⊥ₘ" : (x.val == Inf ? "⊤ₘ" : ))
 #      (x.val == -Inf ? "⊥ₘ" : (x.val == Inf ? "⊤ₘ" : "$(x.val)ₘ")))
 #FVA: this printing makes impossible to recover from a scanning of a string the bottom or top elmts. 
@@ -40,6 +40,7 @@ Base.zero(::Type{Mmp{T}}) where T = Mmp(typemin(T))
 Base.one(::Type{Mmp{T}}) where T <: AbstractFloat = Mmp(0.0)
 #Base.one(::Mmp{T}) where T = one(Mmp{T})#FVA: already defined in commonCode
 
+# The top element is the maximum element in the set of real numbers.
 top(::Type{Mmp{T}}) where T = Mmp(typemax(T))
 #top(::Mmp{T}) where T = top(Mmp{T})#FVA: already defined in commonCode
 
@@ -47,6 +48,11 @@ top(::Type{Mmp{T}}) where T = Mmp(typemax(T))
 # Semifields.
 ⊥ = zero(Mmp{Float64})
 ⊤ = top(Mmp{Float64})
+#Base.ℯ = one(Mmp{Float64})#FVA: it would seem constants cannot be redefined and Base defines const ℯ = 2.71...
+#\schwa, alternative to ℯ
+#\Iota, rotation-invariant unit
+#\topbot, the unit element, also rotation invariant
+⌶ = one(Mmp{Float64})
 
 # Individual number inversion
 Base.inv(x::Mmp) = Mmp(-x.val)
@@ -55,6 +61,7 @@ Base.adjoint((;val)::Mmp{T}) where T = Mmp{T}(-val)
 # The *direct* ordering: these should be generalized to General semifields
 Base.isless(a::Mmp{T}, b::Mmp{T}) where T = isless(a.val,b.val)
 Base.isequal(a::Mmp{T}, b::Mmp{T}) where T = isequal(a.val,b.val)
+Base.isapprox(a::Mmp{T}, b::Mmp{T}; kwargs...) where T = isapprox(a.val,b.val; kwargs...)
 
 # Operator set for all Mmp numbers
 # 1) lower operators \oplusl  \otimesl

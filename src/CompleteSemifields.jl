@@ -44,10 +44,13 @@ export
     top, 
     ⊤,# The top element
     ⊥, #also called zero
-    ℯ, #also called the unit, is a special element too.
-    # inv is the inversion operator,
-    # adjoint is the inversion, specially on vectors and matrices, where it transposes.
+    ⌶,#\topbot, The unit element
+    #Ι, #\Iota also called the unit, is a special element too.
+    #ℯ, #also called the unit, is a special element too.
+    # inv is the inversion operator, but is imported from Base
+    # adjoint is the inversion, specially on vectors and matrices, where it transposes, also exported from base.
      # Show tries to represent ⊥, ⊤ and the unit in some special notation. 
+    # isapprox, compares the two elements
     ###########
 
     #############

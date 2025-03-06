@@ -1,6 +1,6 @@
 using Test
 using Revise# FVA: to enable revision during development of CSemifields, this should be incoked from .initjulia
-using CompleteSemifields
+#using CompleteSemifields
 
 @testset "CompleteSemifields.jl" begin
     # Write your tests here.

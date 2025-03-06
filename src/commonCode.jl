@@ -15,11 +15,14 @@
 #abstract type Semifield <: Semiring end
 # Should add division but fail on inverses for bot
 
-@doc raw"""
+# The pattern for defining this abstract type and all its subtypes comes from: 
+#https://gitlab.lisn.upsaclay.fr/fast/fst/semirings.jl/-/blob/main/src/Semirings.jl?ref_type=heads
+raw"""
     abstract type CompleteSemifield{T} end
 
 Abstract type for a semiring ``(S, \oplus\c, \oplus\dot, \otimes\c, \otimes\dot inv, \bot, \euler, \top)``.
-    """
+
+"""
 abstract type CompleteSemifield{T} #<: Semifield 
 end
 # Should add top element
@@ -78,8 +81,9 @@ Unit element for a completed semifield ''ℯ'' (get with \\euler)
 """
 ℯ 
 
+# This also comes from the previous code source.
 """
-    val(x::Semifield)
+    val(x::CompleteSemifield)
 
 Return the "real" value / object wrapped in the semifield type
 """

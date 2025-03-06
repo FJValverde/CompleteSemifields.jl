@@ -5,7 +5,7 @@ But they are actually:
 - algebras, i.e. what multiplies left and right semimodules. This is the actual 
 structure with multiplication!
 """
-using Tullio, CompleteSemifields
+using Tullio, CompleteSemifields#?? why this Module here?
 
 import Base: transpose, inv, isless, isequal
 

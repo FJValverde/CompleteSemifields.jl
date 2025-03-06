@@ -2,7 +2,8 @@
  A generic interface for semimodules
 """
 module Bisemimodules
-using .CompleteSemifield
+#using .CompleteSemifield
+#using Tullio# For quick matrix operations mainly
 
 export
     Bisemimodule# An abstract type

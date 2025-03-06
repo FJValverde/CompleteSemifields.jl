@@ -1,12 +1,18 @@
 #
 # Code for defining the Max-min-plus (Mmp) Complete Semifield.
+#
+# Development notes: 
+# This is clearly inspired by the work of L.Blondel on 
+# https://gitlab.lisn.upsaclay.fr/fast/fst/semirings.jl/-/blob/main/src/Semirings.jl?ref_type=heads
+# He uses another approach of including the semifield(!) operations in the type, but we cannot use that for
+# pairs of complete semifields easily, so we use this approach instead. 
 
-raw"
+"""
     The complete Max-min-plus (Mmp) Semifield.
 
     This semifield is not naturally complete, but can be completed in the
     usual form by adding a top element. 
-"
+"""
 struct Mmp{T <: AbstractFloat} <: CompleteSemifield{T}
     val::T
     # # Are these constructors needed here?

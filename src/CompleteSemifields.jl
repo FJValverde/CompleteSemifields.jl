@@ -14,24 +14,22 @@
         This generates some notational 'anxiety' if you want to mix expressions stemming from
         residuation a problem which was solved in convex analysis with the use of the dotted-notation
         
-        So for the pair on max-min-plus completed semifields we have:
+        So for e.g. the pair of max-min-plus completed semifields we have:
         - upper addition and multiplication refer to min-plus operations.
         - lower addition and multiplication refer to max-plus operations.
+        
         The motto is: 'the product ⊥⊗⊤ goes where the dot is pointing to'. 
-
         - ⊥ is the bottom of the direct semifield, max-plus.
         - ⊤ is the bottom of the inverse semifield, min-plus.
         
-        It also add a type for (left, right) bisemimodules over complete semifields, to capture,
+        It also adds a type for (left, right) bisemimodules over complete semifields, to capture,
         essentially, matrices and their associated left and right vector spaces.
 
         Note that square matrices on top of belonging to a semimodule, they belong to a semialgebra,
-        ie. a vector space with an extra inner vector product allowing us to generate matrix powers 
-        and tr-closures. 
+        ie. a vector space with an extra **inner** product allowing us to generate matrix powers 
+        and sum-multiply-closures. 
 """
 module CompleteSemifields
-using Reexport
-using Tullio# For quick matrix operations mainly
 
 export
     # Types: Typically stemming from Numbers! Fix this!
@@ -61,14 +59,14 @@ export
 
 include("commonCode.jl")#Type definitions and operator introduction and little else
 include("maxMinPlus.jl")#Includes the Max-min-plus complete semifield, Mmp
-include("Bisemimodules.jl")#Actually (matrix, scalar)-semimodules, so mainlo column vectors. 
+#include("Bisemimodules.jl")#Actually (matrix, scalar)-semimodules, so mainlo column vectors. 
 
 #Exporting everything from the inside. Check DSP.jl for the technique.
 #using .Semimodules
 
 # This pattern from the main module in DSP.jl
-using Reexport
-@reexport using .Bisemimodules#from Semimodules.jl
+#using Reexport
+#@reexport using .Bisemimodules#from Semimodules.jl
 
 #include("deprecated.jl")#To be included in future versions of the package!
 end

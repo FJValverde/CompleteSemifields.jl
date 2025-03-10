@@ -41,20 +41,20 @@ export
     ⊕̇, ⊗̇,#upper addition ''\oplus\dot'', multiplication \otimes\dot 
     ⊕̧, ⊗̧,#lower addition ''\oplus\c'', multplication \otimes\c (for the time being)
     # TODO: try to actually find something like \oplus\ldot lower dot, instead of \c
-    top, 
+    top, zero, one, 
     ⊤,# The top element
     ⊥, #also called zero
     ⌶,#\topbot, The unit element
     #Ι, #\Iota also called the unit, is a special element too.
     #ℯ, #also called the unit, is a special element too.
-    # inv is the inversion operator, but is imported from Base
-    # adjoint is the inversion, specially on vectors and matrices, where it transposes, also exported from base.
-     # Show tries to represent ⊥, ⊤ and the unit in some special notation. 
-    # isapprox, compares the two elements
+    inv,# inv is the inversion operator, but is imported from Base
+    conj, adjoint,# adjoint is the inversion, specially on vectors and matrices, where it transposes, also exported from base.
+    show,# Show tries to represent ⊥, ⊤ and the unit in some special notation. 
+    isapprox, isless, isequal,# compare the two elements
+    ∑̇, ∑̧,#upper and lower multiple sums '' \sum\c'' and ''\sum\dot'', resp
     ###########
-
-    #############
     # Concrete types:
+    ###########
     Mmp #our beloved Max-min-plus pairs. 
     # Bottom is represented as "⊥ₘ"
     # Top is represented as "⊤ₘ"
@@ -63,7 +63,7 @@ export
 include("commonCode.jl")#Type definitions and operator introduction and little else
 include("maxMinPlus.jl")#Includes the Max-min-plus complete semifield, Mmp
 #include("Bisemimodules.jl")#Actually (matrix, scalar)-semimodules, so mainlo column vectors. 
-
+include("MmpMatrices.jl")
 #Exporting everything from the inside. Check DSP.jl for the technique.
 #using .Semimodules
 

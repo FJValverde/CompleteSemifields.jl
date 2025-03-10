@@ -27,3 +27,10 @@ using CompleteSemifields
     #@test ∑̇([a, b]) == a + b#FVA: this is not defined in the module yet
     #@test ∑̧([a, b]) == a + b#FVA
 end
+
+@testset "Max-min-plus matrix algebra" begin
+    print(names(CompleteSemifields))
+    a = Mmp.(rand(1.0:25.0, (2,5)))#This is a row matrix
+    b = Mmp.(rand(1.0:25.0, (2,5)))#This is also a row matrix.
+    @test adjoint(a) == a' && adjoint(b) == b'
+end

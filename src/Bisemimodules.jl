@@ -47,7 +47,7 @@ It has left and right actions by two algebras: e.g.
     closures are defined.
 
 """
-abstract type Bisemimodule{T <: CompleteSemifield}
+abstract type CompleteBisemimodule{L,R} where L <: CompleteSemifield where R <: CompleteSemifield
 end#CompleteBisemimodules
 # FVA: is this ever instantiated as a concrete type? Perhaps making an alias of Matrix{CompleteSemifield{T}}
 # FVA: is the algebra completable to a CompleteSemifield of matrices?

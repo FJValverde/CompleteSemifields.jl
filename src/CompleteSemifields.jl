@@ -39,7 +39,7 @@ export
     ###########
     #operations
     ⊕̇, ⊗̇,#upper addition ''\oplus\dot'', multiplication \otimes\dot 
-    ⊕̧, ⊗̧,#lower addition ''\oplus\c'', multplication \otimes\c (for the time being)
+    ⊕̧, ⊗̧,#lower addition ''\oplus\c'', multiplication \otimes\c (for the time being)
     # TODO: try to actually find something like \oplus\ldot lower dot, instead of \c
     top, zero, one, 
     ⊤,# The top element
